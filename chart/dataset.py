@@ -2,27 +2,54 @@ import pandas_datareader as web
 from plotly.offline import plot
 import plotly.graph_objs as go
 import datetime as dt
+import yfinance as yf
 
-def DataSet(token):
+def DataSet(token): 
 
     end = dt.datetime.now()
     day = dt.timedelta(days=365)
     start = end - day
 
-    data = web.DataReader(token, 'yahoo', start, end)
-    
-    graph = [go.Candlestick(x=data.index,
-                open=data['Open'],
-                high=data['High'],
-                low=data['Low'],
-                close=data['Close'], name = 'market data')]
-    
-    layout = {
-        'title': f'{token} live share price evolution',
-        'yaxis_title': 'Stock Price (USD per Shares)'
-    }
+    # data = web.DataReader(token, 'yahoo', start, end, interval='1m')
+    data = yf.download(token, period='1y')
+    print(data)
+    # graph = [go.Candlestick(x=data.index, 
+    #             open=data['Open'],
+    #             high=data['High'],
+    #             low=data['Low'],
+    #             close=data['Close'], name='market data')]
 
-    plot_div = plot({'data': graph, 'layout': layout}, 
+    fig = go.Figure()
+
+    fig.add_trace(go.Candlestick(x=data.index,
+                    open=data['Open'],
+                    high=data['High'],
+                    low=data['Low'],
+                    close=data['Close'], name = 'market data'))
+
+    fig.update_layout(
+        title=f'{token} live share price evolution',
+        yaxis_title='Stock Price (USD per Shares)')
+
+    fig.update_xaxes(
+        rangeslider_visible=True,
+        rangeselector=dict(
+            buttons=list([
+                dict(count=7, label="7d", step="day", stepmode="backward"),
+                dict(count=30, label="30d", step="day", stepmode="backward"),
+                dict(count=3, label="3m", step="month", stepmode="todate"),
+                dict(count=1, label="YTD", step="year", stepmode="todate"),
+                dict(step="all")
+            ])
+        )
+    )
+    
+    # layout = {
+    #     'title': f'{token} live share price evolution',
+    #     'yaxis_title': 'Stock Price (USD per Shares)'
+    # }
+
+    plot_div = plot({'data': fig}, 
                     output_type='div')
 
     my_formater = "{0:.2f}"
@@ -38,18 +65,17 @@ def DataSet(token):
 
 def priceData():
     end = dt.datetime.now()
-    day = dt.timedelta(days=1)
+    day = dt.timedelta(days=3)
     start = end - day
 
     my_formater = "{0:.2f}"
 
     data = []
-    token = ['TSLA', 'AAPL', 'GOOG', 'FB']
+    token = ['TSLA', 'AAPL', 'GOOG', 'FB', 'DOGE-INR', 'BTC-USD']
 
     for tkn in token:
         webData = web.DataReader(tkn, 'yahoo', start, end)
         data.append(my_formater.format(webData['Close'][-1]))
-
 
     print(data)
     return data

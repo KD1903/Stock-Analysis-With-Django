@@ -22,30 +22,12 @@ tr {
     text-align: left;
 }
 button {
-    height: 25px;
+    height: 25px; 
     width: 60px;
     font-weight: bold;
     border: none;
     border-radius: 5px;
 }
-
-.tsla {
-    background-color: red;
-    color: white;
-}
-.aapl {
-    background-color: silver;
-    color: white;
-}
-.goog {
-    background-color: green;
-    color: white;
-}
-.fb {
-    background-color: blue;
-    color: white;
-}
-
 </style>
 
 <h1>Stock Market Analysis</h1>
@@ -65,7 +47,7 @@ button {
     </tr>
     <tr>
         <td class='tdleft'>
-            <button class='tsla' type='submit' value='TSLA' name='token'>TSLA</button>
+            <button style='color:white; background-color:red' type='submit' value='TSLA' name='token'>TSLA</button>
             <h3 style="display: inline; margin:25px">Tesla</h3>
         </td>
         <td class='tdright'>
@@ -74,7 +56,7 @@ button {
     </tr>
     <tr>
         <td class='tdleft'>
-            <button class='aapl' type='submit' value='AAPL' name='token'>AAPL</button>
+            <button style='color:white; background-color:silver' type='submit' value='AAPL' name='token'>AAPL</button>
             <h3 style="display: inline; margin:25px">Apple</h3>
         </td>
         <td class='tdright'>
@@ -83,7 +65,7 @@ button {
     </tr>
     <tr>
         <td class='tdleft'>
-            <button class='goog' type='submit' value='GOOG' name='token'>GOOG</button>
+            <button style='color:white; background-color:green' type='submit' value='GOOG' name='token'>GOOG</button>
             <h3 style="display: inline; margin:25px">Google</h3>
         </td>
         <td class='tdright'>
@@ -92,11 +74,29 @@ button {
     </tr>
     <tr>
         <td class='tdleft'>
-            <button class='fb' type='submit' value='FB' name='token'>FB</button>
+            <button style='color:white; background-color:blue' type='submit' value='FB' name='token'>FB</button>
             <h3 style="display: inline; margin:25px">Faceook</h3>
         </td>
         <td class='tdright'>
             {{ fb }}
+        </td>
+    </tr>
+    <tr>
+        <td class='tdleft'>
+            <button style='color:white; background-color:darkgoldenrod' type='submit' value='DOGE-INR' name='token'>DOGE</button>
+            <h3 style="display: inline; margin:25px">DOGE-INR</h3>
+        </td>
+        <td class='tdright'>
+            {{ doge }}
+        </td>
+    </tr>
+    <tr>
+        <td class='tdleft'>
+            <button style='color:white; background-color:green' type='submit' value='BTC-USD' name='token'>BTC</button>
+            <h3 style="display: inline; margin:25px">Bitcoin-USD</h3>
+        </td>
+        <td class='tdright'>
+            {{ btc }}
         </td>
     </tr>
 </table>
