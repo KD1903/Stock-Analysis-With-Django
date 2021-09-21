@@ -7,7 +7,7 @@ import yfinance as yf
 def DataSet(token): 
 
     end = dt.datetime.now()
-    day = dt.timedelta(days=365)
+    day = dt.timedelta(days=360)
     start = end - day
 
     # data = web.DataReader(token, 'yahoo', start, end, interval='1m')
