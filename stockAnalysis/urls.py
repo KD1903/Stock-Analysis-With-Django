@@ -15,10 +15,18 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from chart.views import stockdata, chartdata
+from chart.views import *
+from authUser.views import *
 
 urlpatterns = [
-    path('', chartdata),
+    path('', user_login),
     path('stock/', stockdata),
     path('admin/', admin.site.urls),
+
+    path('register/', register, name= 'register'),
+    path('login/', user_login, name= 'login'),
+    path('token/', token, name= 'token'),
+    path('sucessful/', sucessful, name= 'sucessful'),
+    path('verify/<auth_token>', verify, name= 'verify'),
+    path('error/', error, name= 'error'),
 ]

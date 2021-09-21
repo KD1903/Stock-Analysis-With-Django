@@ -6,10 +6,6 @@ import yfinance as yf
 
 def DataSet(token): 
 
-    end = dt.datetime.now()
-    day = dt.timedelta(days=362)
-    start = end - day
-
     # data = web.DataReader(token, 'yahoo', start, end, interval='1m')
     data = yf.download(token, period='1y')
     print(data)
@@ -61,21 +57,4 @@ def DataSet(token):
     # data = [current price, highest, lowest, plot]
     data = [current, high, low, plot_div]
 
-    return data
-
-def priceData():
-    end = dt.datetime.now()
-    day = dt.timedelta(days=3)
-    start = end - day
-
-    my_formater = "{0:.2f}"
-
-    data = []
-    token = ['TSLA', 'AAPL', 'GOOG', 'FB', 'DOGE-INR', 'BTC-USD']
-
-    for tkn in token:
-        webData = web.DataReader(tkn, 'yahoo', start, end)
-        data.append(my_formater.format(webData['Close'][-1]))
-
-    print(data)
     return data

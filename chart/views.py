@@ -2,20 +2,19 @@ from django.shortcuts import render
 import datetime as dt
 
 from .dataset import DataSet
-from .dataset import priceData
 
 # Create your views here.
-def chartdata(request):
-    price = priceData()
-    context = {
-        'tsla': price[0],
-        'aapl': price[1],
-        'goog': price[2],
-        'fb': price[3],
-        'doge': price[4],
-        'btc': price[5]
-    }
-    return render(request, 'home.html', context)
+# def chartdata(request):
+#     price = priceData()
+#     context = {
+#         'tsla': price[0],
+#         'aapl': price[1],
+#         'goog': price[2],
+#         'fb': price[3],
+#         'doge': price[4],
+#         'btc': price[5]
+#     }
+#     return render(request, 'home.html', context)
 
 def stockdata(request):
     print(request.POST['token'])
