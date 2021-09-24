@@ -35,6 +35,10 @@ EMAIL_PORT = 587
 EMAIL_HOST_USER = 'dp312444@gmail.com'
 EMAIL_HOST_PASSWORD = 'ThopTV@@30'
 
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, 'static'),
+]
+
 # Application definition
 
 INSTALLED_APPS = [

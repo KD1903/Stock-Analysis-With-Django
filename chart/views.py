@@ -31,3 +31,18 @@ def stockdata(request):
     }
 
     return render(request, 'chart.html', context)
+
+def dashboard(request):
+    # token = request.POST['token'].upper()
+
+    data = DataSet('AAPL')
+    # data = [current price, highest, lowest, plot]
+
+    context = {
+        'current': data[0],
+        'highest': data[1],
+        'lowest': data[2],
+        'plt': data[3],
+    }
+
+    return render(request, 'index.html', context)
