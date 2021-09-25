@@ -1,7 +1,11 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
+from django.contrib.auth.decorators import login_required
+
 import datetime as dt
 
 from .dataset import DataSet
+from authUser.models import Profile
+from django.contrib.auth.models import User
 
 # Create your views here.
 # def chartdata(request):
@@ -32,24 +36,59 @@ def stockdata(request):
 
     return render(request, 'chart.html', context)
 
+@login_required(login_url='/')
 def dashboard(request):
-    # token = request.POST['token'].upper()
+    if request.user.is_authenticated:
+        username = request.user.username
+        user_obj = User.objects.filter(username = username).first()
+        
+        obj = Profile.objects.get(user=user_obj)
+        tokens = obj.tokens
+        
+        tokens = list(tokens.split(','))
 
-    data = DataSet('AAPL')
+    if request.method == 'POST':
+        tkn = request.POST['token']
+        
+    else:
+        tkn = 'AAPL'
 
-    # context = {
-    #     'range': range(30),
-    #     'date': data[0],
-    #     'open': data[1],
-    #     'close': data[2],
-    #     'high': data[3],
-    #     'low': data[4],
-    #     'plt': data[5],
-    # }
+    data = DataSet(tkn)
 
     context = {
         'dataset': data[0],
         'plt': data[1],
+        'username': username,
+        'tokens': tokens,
+        'tkn': tkn,
+    }
+
+    return render(request, 'index.html', context)
+
+def add_token(request):
+    token = request.POST['new_token']
+
+    if request.user.is_authenticated:
+        username = request.user.username
+        user_obj = User.objects.filter(username = username).first()
+        
+        obj = Profile.objects.get(user=user_obj)
+        
+        tokens = set(obj.tokens.split(','))
+        tokens.add(token)
+
+        tokens = ','.join(tokens)
+        obj.tokens = tokens
+        obj.save()
+
+    data = DataSet(token)
+    
+    context = {
+        'dataset': data[0],
+        'plt': data[1],
+        'username': username,
+        'tokens': list(tokens.split(',')),
+        'tkn': token,
     }
 
     return render(request, 'index.html', context)

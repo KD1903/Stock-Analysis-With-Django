@@ -8,7 +8,7 @@ from django.contrib.auth.models import User
 from django.contrib import messages
 from django.conf import settings
 from django.core.mail import send_mail
-from django.contrib.auth import authenticate,login
+from django.contrib.auth import authenticate, login, logout
 
 from authUser.models import Profile
 
@@ -23,20 +23,20 @@ def user_login(request):
         user_obj=User.objects.filter(username = username).first()
         if user_obj is None:
             messages.success(request,'User Not Found')
-            return redirect ('/login')
+            return redirect('login')
 
         profile_obj = Profile.objects.filter(user = user_obj ).first()
         if not profile_obj.is_varified:
             messages.success(request,'Check your email to varify your account')
-            return redirect ('/login')
+            return redirect('login')
 
         user=authenticate(username=username,password=password)
         if user is None:
             messages.success(request,'wrong credentials')
-            return redirect('')
+            return redirect('login')
 
         login(request, user)
-        return redirect('/')
+        return redirect('dashboard/')
 
     my_formater = "{0:.2f}"
 
@@ -112,7 +112,7 @@ def verify(request,auth_token):
             profile_obj.is_varified = True
             profile_obj.save()
             messages.success(request,'Account has been varified')
-            return redirect('/login')
+            return redirect('/')
 
         else:
             return redirect('/error')

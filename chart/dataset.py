@@ -7,7 +7,7 @@ import yfinance as yf
 def DataSet(token): 
 
     # data = web.DataReader(token, 'yahoo', start, end, interval='1m')
-    data = yf.download(token, period='1y')
+    data = yf.download(token.upper(), period='1y')
     print(data)
 
     fig = go.Figure()
