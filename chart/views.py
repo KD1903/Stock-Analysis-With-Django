@@ -36,13 +36,20 @@ def dashboard(request):
     # token = request.POST['token'].upper()
 
     data = DataSet('AAPL')
-    # data = [current price, highest, lowest, plot]
+
+    # context = {
+    #     'range': range(30),
+    #     'date': data[0],
+    #     'open': data[1],
+    #     'close': data[2],
+    #     'high': data[3],
+    #     'low': data[4],
+    #     'plt': data[5],
+    # }
 
     context = {
-        'current': data[0],
-        'highest': data[1],
-        'lowest': data[2],
-        'plt': data[3],
+        'dataset': data[0],
+        'plt': data[1],
     }
 
     return render(request, 'index.html', context)

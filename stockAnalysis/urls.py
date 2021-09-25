@@ -19,12 +19,12 @@ from chart.views import *
 from authUser.views import *
 
 urlpatterns = [
-    path('', user_login),
+    path('', user_login, name='login'),
     path('stock/', stockdata),
     path('admin/', admin.site.urls),
 
     path('register/', register, name='register'),
-    path('login/', user_login, name='login'),
+    # path('login/', user_login, name='login'),
     path('token/', token, name='token'),
     path('sucessful/', sucessful, name='sucessful'),
     path('verify/<auth_token>', verify, name='verify'),
