@@ -41,7 +41,7 @@ def user_login(request):
     my_formater = "{0:.2f}"
 
     data = []
-    token = ['TSLA', 'AAPL', 'GOOG', 'FB', 'DOGE-INR', 'BTC-USD']
+    token = ['TSLA', 'FB', 'DOGE-INR', 'BTC-USD']
 
     for tkn in token:
         webData = yf.download(tkn, period='3d')
@@ -49,11 +49,9 @@ def user_login(request):
     
     context = {
         'tsla': data[0],
-        'aapl': data[1],
-        'goog': data[2],
-        'fb': data[3],
-        'doge': data[4],
-        'btc': data[5]
+        'fb': data[1],
+        'doge': data[2],
+        'btc': data[3]
     }
 
     return render(request, 'home.html', context)
