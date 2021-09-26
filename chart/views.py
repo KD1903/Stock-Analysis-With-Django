@@ -36,7 +36,7 @@ def stockdata(request):
 
     return render(request, 'chart.html', context)
 
-@login_required(login_url='/')
+@login_required(login_url='login')
 def dashboard(request):
     if request.user.is_authenticated:
         username = request.user.username
@@ -46,6 +46,9 @@ def dashboard(request):
         tokens = obj.tokens
         
         tokens = list(tokens.split(','))
+
+        if '' in tokens:
+            tokens.remove('')
 
     if request.method == 'POST':
         tkn = request.POST['token']
@@ -57,7 +60,10 @@ def dashboard(request):
 
     context = {
         'dataset': data[0],
-        'plt': data[1],
+        'current': data[1],
+        'high': data[2],
+        'low': data[3],
+        'plt': data[4],
         'username': username,
         'tokens': tokens,
         'tkn': tkn,
@@ -75,19 +81,60 @@ def add_token(request):
         obj = Profile.objects.get(user=user_obj)
         
         tokens = set(obj.tokens.split(','))
-        tokens.add(token)
+        tokens.add(token.upper())
+        
+        if '' in tokens:
+            tokens.remove('')
 
-        tokens = ','.join(tokens)
-        obj.tokens = tokens
+        add_tokens = ','.join(tokens)
+        obj.tokens = add_tokens
         obj.save()
 
     data = DataSet(token)
     
     context = {
         'dataset': data[0],
-        'plt': data[1],
+        'current': data[1],
+        'high': data[2],
+        'low': data[3],
+        'plt': data[4],
         'username': username,
-        'tokens': list(tokens.split(',')),
+        'tokens': tokens,
+        'tkn': token,
+    }
+
+    return render(request, 'index.html', context)
+
+def remove_token(request):
+    token = request.POST['new_token']
+
+    if request.user.is_authenticated:
+        username = request.user.username
+        user_obj = User.objects.filter(username = username).first()
+        
+        obj = Profile.objects.get(user=user_obj)
+        
+        tokens = set(obj.tokens.split(','))
+        if token in tokens:
+            tokens.remove(token)
+        
+        if '' in tokens:
+            tokens.remove('')
+
+        add_tokens = ','.join(tokens)
+        obj.tokens = add_tokens
+        obj.save()
+
+    data = DataSet(token)
+    
+    context = {
+        'dataset': data[0],
+        'current': data[1],
+        'high': data[2],
+        'low': data[3],
+        'plt': data[4],
+        'username': username,
+        'tokens': tokens,
         'tkn': token,
     }
 

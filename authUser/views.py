@@ -119,6 +119,9 @@ def verify(request,auth_token):
     except Exception as e:
         print(e)
 
-
 def error(request):
     return render(request,'error.html')
+
+def logout_user(request):
+    logout(request)
+    return redirect('login')

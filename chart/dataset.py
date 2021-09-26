@@ -8,7 +8,6 @@ def DataSet(token):
 
     # data = web.DataReader(token, 'yahoo', start, end, interval='1m')
     data = yf.download(token.upper(), period='1y')
-    print(data)
 
     fig = go.Figure()
 
@@ -77,9 +76,9 @@ def DataSet(token):
         open_data,
         close_data,
         high_data,
-        low_data
+        low_data,
     )
 
-    data_return = [dataset, plot_div]
+    data_return = [dataset, current, high, low, plot_div]
 
     return data_return

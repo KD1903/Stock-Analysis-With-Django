@@ -30,6 +30,8 @@ urlpatterns = [
     path('verify/<auth_token>', verify, name='verify'),
     path('error/', error, name='error'),
     path('add_token/', add_token, name='add_token'),
+    path('remove_token/', remove_token, name='remove_token'),
+    path('logout_user/', logout_user, name='logout_user'),
 
     path('dashboard/', dashboard, name='dashboard'),
 ]

@@ -54,7 +54,7 @@
   
   <div class="navbar-nav">
     <div class="nav-item text-nowrap">
-      <a class="nav-link px-3" href="{% url 'login' %}">Sign out</a>
+      <a class="nav-link px-3" href="{% url 'logout_user' %}">Sign out</a>
     </div>
   </div>
 </header>
@@ -67,15 +67,24 @@
           <li class="nav-item">
             <a class="nav-link active" aria-current="page" href="#">
               <span data-feather="home"></span>
-              Dashboard
+              Portfolio
             </a>
           </li>
           {% for i in tokens %}
             <li class="nav-item">
-              <a class="nav-link" href="#">
-                <span data-feather="file"></span>
-                {{ i }}
-              </a>
+              <form action="{% url 'dashboard' %}" method="POST">
+                {% csrf_token %}
+                <input type="hidden" name="token" value="{{i}}">
+                <button onclick="submit"
+                  style="border: none; 
+                         display: inline-block; 
+                         background-color: inherit;
+                         padding: 6px 20px;
+                         font-size: 14px;
+                         font-weight: 600;">
+                  {{i}}
+                </button>
+              </form>
             </li>
           {% endfor %}
         </ul>
@@ -125,12 +134,12 @@
               <input type="hidden" name="new_token" value="{{tkn}}">
               <button type="submit" class="btn btn-sm btn-outline-secondary">Add to portfolio</button>
             </form>
-            <button type="button" class="btn btn-sm btn-outline-secondary">Export</button>
+            <form action="{% url 'remove_token' %}" method="POST">
+              {% csrf_token %}
+              <input type="hidden" name="new_token" value="{{tkn}}">
+              <button type="submit" class="btn btn-sm btn-outline-secondary">Remove from portfolio</button>
+            </form>
           </div>
-          <button type="button" class="btn btn-sm btn-outline-secondary dropdown-toggle">
-            <span data-feather="calendar"></span>
-            This week
-          </button>
         </div>
       </div>
 
@@ -140,7 +149,13 @@
       {{ plt }}
       {% endautoescape %} 
 
-      <h2>Section title</h2>
+      <ul>
+        <li style="display:inline-block; padding-right: 50px;">Current Price: {{ current }}</li>
+        <li style="display:inline-block; padding-right: 50px;">All time high: {{ high }}</li>
+        <li style="display:inline-block; padding-right: 50px;">All time Low: {{ low }}</li>
+      </ul>
+
+      <h2>Stock Details</h2>
       <div class="table-responsive">
         <table class="table table-striped table-sm">
           <thead>
