@@ -1,7 +1,6 @@
 Django==3.2.6
 django-heroku==0.3.1
 gunicorn==20.1.0
-matplotlib @ file:///C:/ci/matplotlib-suite_1613408055530/work
 mediapipe==0.8.7.2
 plotly==5.2.1
 yahoo-finance==1.4.0
