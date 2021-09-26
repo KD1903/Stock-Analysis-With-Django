@@ -27,7 +27,9 @@ SECRET_KEY = '6^@^s!z5(-c)xgve0l^51l#(b(#)_g(i5s01f5efq90sl_xj%w'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['https://portfolio-stock-market.herokuapp.com/',
+                 'localhost',
+                 '127.0.0.1']
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
