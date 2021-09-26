@@ -25,7 +25,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = '6^@^s!z5(-c)xgve0l^51l#(b(#)_g(i5s01f5efq90sl_xj%w'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['https://portfolio-stock-market.herokuapp.com/',
                  'localhost',
@@ -40,6 +40,7 @@ EMAIL_HOST_PASSWORD = 'ThopTV@@30'
 
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'static required'),
+    os.path.join(BASE_DIR, 'dashboard'),
 ]
 
 # Application definition

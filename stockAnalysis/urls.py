@@ -17,6 +17,8 @@ from django.contrib import admin
 from django.urls import path
 from chart.views import *
 from authUser.views import *
+from django.conf.urls import url
+from django.views.generic import RedirectView
 
 urlpatterns = [
     path('', user_login, name='login'),
@@ -34,4 +36,6 @@ urlpatterns = [
     path('logout_user/', logout_user, name='logout_user'),
 
     path('dashboard/', dashboard, name='dashboard'),
+
+    url(r'^favicon\.ico$',RedirectView.as_view(url='/static/images/favicon.ico')),
 ]
