@@ -1,1 +1,5 @@
+<<<<<<< HEAD
 web: gunicorn portfolio-stock-market.wsgi
+=======
+web: gunicorn StockAnalysis.wsgi
+>>>>>>> 31567d59eaf6b189ae11cade68104d2911f1d616
