@@ -6,5 +6,7 @@ This Project include User_Auth which have functions of user email verification w
 
 User can see the stock rate chart of the companies which he adds on. 
 
+https://github.com/KD1903/Stock-Analysis-With-Django/blob/main/prj2.PNG
+
 
 
